@@ -1,0 +1,13 @@
+<div class="post-list-item" [ngClass]="{'list-group-item': true,
+                 'list-group-item-success': post.loveIts > 0,
+                 'list-group-item-danger': post.loveIts < 0}">
+  <h3 class="post-title">{{ post.title }}</h3>
+  <div class="date float">{{ post.createdAt | date:'short' }}</div>
+  <br/>
+  <br/>
+  <div class="content">{{ post.content }}</div>
+  <br/>
+  <button class="btn btn-success" (click)="loveIt()">Love It</button>&nbsp;
+  <button class="btn btn-danger" (click)="dontLoveIt()">Don't Love It</button>
+  <button class="btn btn-danger float" (click)="onDeletePost()">Supprimer le post</button>
+</div>
