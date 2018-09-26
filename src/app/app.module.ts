@@ -9,10 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostFormComponent } from './post-list/post-form/post-form.component';
 import { PostListItemComponent } from './post-list/post-list-item/post-list-item.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const appRoutes: Routes = [
-  { path: 'posts', component: PostListComponent },
-  { path: 'posts/new', component: PostFormComponent },
+  { path: 'posts', canActivate: [AuthGuardService], component: PostListComponent },
+  { path: 'posts/new', canActivate: [AuthGuardService], component: PostFormComponent },
+  { path: 'auth/signup', component: SignupComponent },
+  { path: 'auth/signin', component: SigninComponent },
   { path: '', redirectTo: 'posts', pathMatch: 'full' },
   { path: '**', redirectTo: 'posts' }
 ];
@@ -24,6 +30,8 @@ const appRoutes: Routes = [
     PostListComponent,
     PostFormComponent,
     PostListItemComponent,
+    SignupComponent,
+    SigninComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +40,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [PostsService],
+  providers: [AuthService, AuthGuardService, PostsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

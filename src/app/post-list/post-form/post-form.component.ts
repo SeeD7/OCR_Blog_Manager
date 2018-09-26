@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PostsService } from '../../services/posts.service';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Post } from '../../model/post-model';
 })
 export class PostFormComponent implements OnInit {
 
-  postForm: FormGroup;
+  @ViewChild('postForm') postForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private postsService: PostsService, private router: Router) { }
 
@@ -30,7 +30,7 @@ export class PostFormComponent implements OnInit {
     const title = this.postForm.value['title'];
     const content = this.postForm.value['content'];
     const newPost = new  Post(title, content);
-    newPost.createdAt = new Date(Date.now());
+    newPost.createdAt = Date.now();
     this.postsService.createNewPost(newPost);
     this.router.navigate(['/posts']);
   }

@@ -16,6 +16,8 @@ export class AppComponent {
       storageBucket: 'post-manager-b061c.appspot.com',
       messagingSenderId: '238174578915'
     };
-    firebase.initializeApp(config);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
   }
 }
